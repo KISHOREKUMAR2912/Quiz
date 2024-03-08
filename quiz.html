@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Quiz" class="card">
+        <template if:false={boolValue}>
+        <div class="slds-box slds-var-m-around_small comp2">
+            <lightning-input label="Name" name="Name" onchange={handleChange}></lightning-input>
+            <lightning-input label="Email" name="Email" onchange={handleChange}></lightning-input>
+        </div>
+        <lightning-button label="Start Test" onclick={handleClick} variant="success" class="slds-align_absolute-center"></lightning-button>
+        </template>
+        <template if:true={boolValue}>
+            <template if:false={isQuiz}>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-var-m-around_small slds-col slds-size_1-of-3">Hi, <b>{userName}</b></div>
+            <div class="slds-var-m-around_small slds-col slds-size_1-of-3">Timer:- <b>{elapsedMins} min: {elapsedSecs} sec</b></div>
+            <div class="slds-var-m-around_small slds-col slds-size_1-of-3">Score: <b>{score} points </b></div>
+            </div>
+            <div class="slds-box slds-var-m-around_small comp3">
+                <p>Question: <br><b>{currentItem.question}</b></p>
+                <lightning-checkbox-group name="Checkbox Group"
+                              options={questionOptions}
+                              value={selectedValue}
+                              onchange={handleValue}
+                              disabled={isdisabled}></lightning-checkbox-group>
+            </div>
+        <footer class="slds-grid slds-gutters slds-wrap slds-grid_align-center">
+            <lightning-button label="Play Again" onclick={handlePlayAgain} disabled={playAgain} variant="success" class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button label="Next" onclick={handleNext} disabled={nextDisable} variant="brand" class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button label="Finish" onclick={handleFinish} variant="destructive" class="slds-var-m-around_x-small"></lightning-button>
+        </footer>
+            </template>
+            <template if:true={isQuiz}>
+                <p class="slds-var-m-around_small slds-align_absolute-center"><b>{scoreGreeting} {userName}</b></p>
+                <div class="slds-box slds-var-m-around_large comp2">
+                    <p>Your Score: {score}</p>
+                    <p>Time Taken: {elapsedMins} mins, {elapsedSecs} secs</p>
+                </div>
+                <footer>
+                    <lightning-button label="Close" onclick={handleClose} variant="destructive" class="slds-align_absolute-center"></lightning-button>
+                </footer>
+            </template>
+        </template>
+    </lightning-card>
+</template>
